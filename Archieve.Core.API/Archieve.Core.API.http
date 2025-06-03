@@ -1,0 +1,6 @@
+@Archieve.Core.API_HostAddress = http://localhost:5226
+
+GET {{Archieve.Core.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

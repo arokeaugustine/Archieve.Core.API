@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=Austin;Database=Archieve;Trusted_Connection=True;MultipleActiveResultSets=true; TrustServerCertificate=true;"  Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/Data -Force
