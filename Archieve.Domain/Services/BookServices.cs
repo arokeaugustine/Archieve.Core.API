@@ -1,8 +1,14 @@
-﻿using Archieve.Core.API.Models.Data;
-using Archieve.Core.API.Models.DTOs;
-using Archieve.Core.API.Services.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Archieve.Core.Contracts;
+using Archieve.Core.Contracts.TransferObjects.Books;
+using Archieve.Domain.Interfaces;
+using Archieve.Infrastructure.Models;
 
-namespace Archieve.Core.API.Services
+namespace Archieve.Domain.Services
 {
     public class BookServices : IBookService
     {
@@ -110,9 +116,8 @@ namespace Archieve.Core.API.Services
 
             }
 
-  
-        }
 
+        }
 
         public ResponseModel<UpdateBookDTO> UpdateBook(UpdateBookDTO book)
         {
@@ -258,7 +263,7 @@ namespace Archieve.Core.API.Services
                     Message = "record deleted successfully."
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new ResponseModel<string>
                 {
@@ -269,5 +274,4 @@ namespace Archieve.Core.API.Services
 
         }
     }
-
 }

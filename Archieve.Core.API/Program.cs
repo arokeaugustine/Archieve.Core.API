@@ -1,6 +1,10 @@
-using Archieve.Core.API.Models.Data;
-using Archieve.Core.API.Services;
-using Archieve.Core.API.Services.Interfaces;
+
+using Archieve.Domain.Extensions;
+using Archieve.Domain.Helpers.Authorizations;
+using Archieve.Domain.Interfaces;
+using Archieve.Domain.Services;
+using Archieve.Infrastructure.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +17,9 @@ builder.Services.AddDbContext<ArchieveContext>(options =>
         ));
 
 builder.Services.AddScoped<IBookService, BookServices>();
+builder.Services.AddScoped<IAccountService, AccountServices>();
+builder.Services.AddScoped<IRoleService, RolesServices>();
+builder.Services.ConfigureAuthorizationServices(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -28,9 +35,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseMiddleware<JwtMiddleWare>();
+app.UseMiddleware<PermissionsMiddleware>();
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
+
+
 
 app.MapControllers();
 

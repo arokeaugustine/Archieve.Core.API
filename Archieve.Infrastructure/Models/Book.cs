@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Archieve.Core.API.Models.Data;
+namespace Archieve.Infrastructure.Models;
 
 public partial class Book
 {

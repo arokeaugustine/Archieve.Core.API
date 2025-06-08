@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Archieve.Core.API.Models.Data;
-using Archieve.Core.API.Models.DTOs;
-using Archieve.Core.API.Services.Interfaces;
+using Archieve.Core.Contracts.Enums;
+using Archieve.Core.Contracts.TransferObjects.Books;
+using Archieve.Domain.Helpers.Authorizations;
+using Archieve.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,7 @@ namespace Archieve.Core.API.Controllers
         }
 
         [HttpGet("get-books")]
+        [HasPermission(Permissions.CanViewBooks)]
         public IActionResult GetBooks()
         {
             var response = this.bookService.GetBooks();

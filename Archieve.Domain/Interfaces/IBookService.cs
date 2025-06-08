@@ -1,7 +1,14 @@
-﻿using Archieve.Core.API.Models.Data;
-using Archieve.Core.API.Models.DTOs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Archieve.Core.Contracts;
+using Archieve.Core.Contracts.TransferObjects.Books;
+using Archieve.Infrastructure.Models;
 
-namespace Archieve.Core.API.Services.Interfaces
+
+namespace Archieve.Domain.Interfaces
 {
     public interface IBookService
     {
