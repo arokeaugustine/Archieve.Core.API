@@ -18,7 +18,7 @@ namespace Archieve.Core.API.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create(RolesDTO role)
+        public IActionResult Create(RolesResponse role)
         {
             var response = this.service.CreateRoleAsync(role);
             return Ok(response);

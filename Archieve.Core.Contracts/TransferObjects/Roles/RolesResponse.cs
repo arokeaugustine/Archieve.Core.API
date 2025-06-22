@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Archieve.Core.Contracts.TransferObjects.Roles
 {
-    public class RolesDTO
+    public class RolesResponse
     {
         public int Id { get; set; }
 

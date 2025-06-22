@@ -16,7 +16,7 @@ namespace Archieve.Domain.Services
         }
 
 
-        public async ValueTask<ResponseModel<string>> CreateRoleAsync(RolesDTO roles)
+        public async ValueTask<ResponseModel<string>> CreateRoleAsync(RolesResponse roles)
         {
             if (roles == null)
             {
@@ -68,9 +68,9 @@ namespace Archieve.Domain.Services
         }
 
 
-        public async ValueTask<List<RolesDTO>> GetRoles()
+        public async ValueTask<List<RolesResponse>> GetRoles()
         {
-            var roles = await this.context.Roles.Select(x => new RolesDTO {
+            var roles = await this.context.Roles.Select(x => new RolesResponse {
                 Id = x.Id,
                 Uid = x.Uid,
                 Description = x.Description,    

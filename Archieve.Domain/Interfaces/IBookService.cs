@@ -12,8 +12,8 @@ namespace Archieve.Domain.Interfaces
 {
     public interface IBookService
     {
-        ResponseModel<string> CreateBooks(Books book);
-        ResponseModel<List<Book>> GetBooks();
+        Task<ResponseModel<string>> CreateBooks(Books book);
+        Task<ResponseModel<IQueryable<Book>>> GetBooks();
         ResponseModel<UpdateBookDTO> UpdateBook(UpdateBookDTO book);
         ResponseModel<Books> GetBook(int id);
         ResponseModel<string> DeleteBook(int id);

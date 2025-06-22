@@ -29,6 +29,6 @@ namespace Archieve.Core.Contracts.TransferObjects.User
 
         public DateTime DateCreated { get; set; }
 
-        public List<RolesDTO> UserRoles { get; set; }
+        public List<RolesResponse> UserRoles { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Archieve.Core.Contracts;
 using Archieve.Core.Contracts.TransferObjects.Books;
+using Archieve.Domain.Brokers;
 using Archieve.Domain.Interfaces;
 using Archieve.Infrastructure.Models;
 
@@ -13,17 +14,20 @@ namespace Archieve.Domain.Services
     public class BookServices : IBookService
     {
         private readonly ArchieveContext _Context;
-        public BookServices(ArchieveContext Context)
+        private readonly IStorageBroker _StorageBroker;
+        public BookServices(ArchieveContext context, IStorageBroker storageBroker)
         {
-            _Context = Context;
+            _Context = context;
+            _StorageBroker = storageBroker;
+            
         }
 
-        public ResponseModel<string> CreateBooks(Books book)
+        public async Task<ResponseModel<string>> CreateBooks(Books book)
         {
             try
             {
                 //validatebooks
-                if (book == null)
+               /* if (book == null)
                 {
                     return new ResponseModel<string>
                     {
@@ -40,7 +44,7 @@ namespace Archieve.Domain.Services
                         IsSuccessful = false,
                         Message = "Title and author of the book must be provided."
                     };
-                }
+                }*/
 
                 var data = new Book
                 {
@@ -50,16 +54,8 @@ namespace Archieve.Domain.Services
                     Description = book.Description
                 };
 
-                _Context.Books.Add(data);
-                var save = _Context.SaveChanges();
-                if (save <= 0)
-                {
-                    return new ResponseModel<string>
-                    {
-                        IsSuccessful = false,
-                        Message = "An error occured while trying to save this record."
-                    };
-                }
+               var student = await _StorageBroker.InsertBookAsync(data);
+               
                 return new ResponseModel<string>
                 {
                     IsSuccessful = true,
@@ -79,21 +75,22 @@ namespace Archieve.Domain.Services
         }
 
 
-        public ResponseModel<List<Book>> GetBooks()
+        public async Task<ResponseModel<IQueryable<Book>>> GetBooks()
         {
             try
             {
-                var books = _Context.Books.Where(x => x.IsDeleted == false).ToList();
-                if (books.Count < 1)
+                //var books = _Context.Books.Where(x => x.IsDeleted == false).ToList();
+                var books = await _StorageBroker.SelectAllBooksAsync();
+                if (books.Count() < 1)
                 {
-                    return new ResponseModel<List<Book>>
+                    return new ResponseModel<IQueryable<Book>>
                     {
                         IsSuccessful = true,
                         Message = "No books found"
                     };
                 }
 
-                return new ResponseModel<List<Book>>
+                return new ResponseModel<IQueryable<Book>>
                 {
                     IsSuccessful = true,
                     Message = "successful",
@@ -108,7 +105,7 @@ namespace Archieve.Domain.Services
                 // Serilog
                 // return a response
                 Console.WriteLine($"An error occurred: {ex.Message}");
-                return new ResponseModel<List<Book>>
+                return new ResponseModel<IQueryable<Book>>
                 {
                     IsSuccessful = false,
                     Message = "An error occurred while trying to retrieve books,  reach out to system admin"

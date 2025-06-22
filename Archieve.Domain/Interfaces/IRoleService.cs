@@ -10,8 +10,8 @@ namespace Archieve.Domain.Interfaces
 {
     public interface IRoleService
     {
-        ValueTask<ResponseModel<string>> CreateRoleAsync(RolesDTO roles);
+        ValueTask<ResponseModel<string>> CreateRoleAsync(RolesResponse roles);
         ValueTask<List<string>> GetRolePermission(List<string> uids);
-        ValueTask<List<RolesDTO>> GetRoles();
+        ValueTask<List<RolesResponse>> GetRoles();
     }
 }

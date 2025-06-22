@@ -1,4 +1,5 @@
 
+using Archieve.Domain.Brokers;
 using Archieve.Domain.Extensions;
 using Archieve.Domain.Helpers.Authorizations;
 using Archieve.Domain.Interfaces;
@@ -19,6 +20,8 @@ builder.Services.AddDbContext<ArchieveContext>(options =>
 builder.Services.AddScoped<IBookService, BookServices>();
 builder.Services.AddScoped<IAccountService, AccountServices>();
 builder.Services.AddScoped<IRoleService, RolesServices>();
+builder.Services.AddScoped<ICarService, CarServices>();
+builder.Services.AddScoped<IStorageBroker, StorageBrokers>();
 builder.Services.ConfigureAuthorizationServices(builder.Configuration);
 
 builder.Services.AddControllers();

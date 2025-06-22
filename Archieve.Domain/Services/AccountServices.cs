@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Archieve.Domain.Services
 {
-    public class AccountServices : IAccountService
+    public partial class AccountServices : IAccountService
     {
         ArchieveContext context;
         private readonly IRoleService roleService;
@@ -71,7 +71,7 @@ namespace Archieve.Domain.Services
                     };
                 }
 
-                var checkExistingUser = await this.context.Users.AnyAsync(u => u.EmailAddress == userRequest.EmailAddress && !u.IsDeleted);
+                var checkExistingUser = await this.context.Users.AnyAsync(u => u.EmailAddress == userRequest.EmailAddress);
 
                 if (checkExistingUser)
                 {
@@ -89,8 +89,8 @@ namespace Archieve.Domain.Services
                     PhoneNumber = userRequest.PhoneNumber,
                     EmailAddress = userRequest.EmailAddress,
                     Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password, workFactor: 12),
-                    Status = UserStatus.Active.GetHashCode(),
-                    IsDeleted = false,
+                    //Status = UserStatus.Active.GetHashCode(),
+                   // IsDeleted = false,
                     DateCreated = DateTime.UtcNow
                 };
 
@@ -128,7 +128,9 @@ namespace Archieve.Domain.Services
         {
             var userEntity = await this.context.Users
                 .Include(x => x.UserRoles)
-                .FirstOrDefaultAsync(x => x.EmailAddress == email && x.IsDeleted == false);
+                .FirstOrDefaultAsync(x => x.EmailAddress == email 
+                //&& x.IsDeleted == false
+                );
 
             if (userEntity == null)
                 return null;
@@ -139,7 +141,7 @@ namespace Archieve.Domain.Services
                 LastName = userEntity.LastName,
                 EmailAddress = userEntity.EmailAddress,
                 Uid = userEntity.Uid,
-                Status = userEntity.Status,
+                //Status = userEntity.Status,
                 Password = userEntity.Password,
                 UserRoles = await GetUserRoles(userEntity.UserRoles),
             };
@@ -153,7 +155,10 @@ namespace Archieve.Domain.Services
             Guid uidString = Guid.Parse(uid);
             var userEntity = await this.context.Users
                 .Include(x => x.UserRoles)
-                .FirstOrDefaultAsync(x => x.Uid == uidString && x.IsDeleted == false);
+                .FirstOrDefaultAsync(
+                x => x.Uid == uidString 
+               // && x.IsDeleted == false
+                );
 
             if (userEntity == null)
                 return null;
@@ -164,7 +169,7 @@ namespace Archieve.Domain.Services
                 LastName = userEntity.LastName,
                 EmailAddress = userEntity.EmailAddress,
                 Uid = userEntity.Uid,
-                Status = userEntity.Status,
+               // Status = userEntity.Status,
                 Password = userEntity.Password,
                 UserRoles = await GetUserRoles(userEntity.UserRoles),
             };
@@ -173,10 +178,10 @@ namespace Archieve.Domain.Services
         }
 
 
-        private async Task<List<RolesDTO>> GetUserRoles(ICollection<UserRole> userRoles)
+        private async Task<List<RolesResponse>> GetUserRoles(ICollection<UserRole> userRoles)
         {
             if (userRoles == null || !userRoles.Any())
-                return new List<RolesDTO>();
+                return new List<RolesResponse>();
 
             var allRoles = await this.roleService.GetRoles();
             var roleIds = userRoles.Select(ur => ur.RoleId).ToHashSet();

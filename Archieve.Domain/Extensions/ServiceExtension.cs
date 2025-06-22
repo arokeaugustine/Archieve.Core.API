@@ -93,6 +93,7 @@ namespace Archieve.Domain.Extensions
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITokenGenerator, TokenGenerator>();
 
+
             services.AddScoped<JwtConfig>();
 
             return services;

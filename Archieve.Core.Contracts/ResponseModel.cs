@@ -13,5 +13,10 @@ namespace Archieve.Core.Contracts
         public T Data { get; set; }
     }
 
+    public class ResponseModel
+    {
+        public bool IsSuccessful { get; set; }
+        public string Message { get; set; } = string.Empty;
+    }
 
 }
