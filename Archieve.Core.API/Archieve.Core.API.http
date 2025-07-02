@@ -1,6 +1,13 @@
 @Archieve.Core.API_HostAddress = http://localhost:5226
 
+@Archieve.Core.Address = https://localhost:7286/api
+
 GET {{Archieve.Core.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
+
+
+
 ###
+GET {{Archieve.Core.Address}}/Cars/parts-get
+Accept: application/json

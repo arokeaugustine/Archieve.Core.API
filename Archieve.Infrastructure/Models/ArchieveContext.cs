@@ -69,7 +69,12 @@ public partial class ArchieveContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Cars__3214EC07F07DD49D");
 
+            entity.HasIndex(e => e.Uid, "UQ_Cars_UId").IsUnique();
+
             entity.Property(e => e.Name).HasMaxLength(100);
+            entity.Property(e => e.Uid)
+                .HasDefaultValueSql("(newid())")
+                .HasColumnName("UId");
         });
 
         modelBuilder.Entity<CarModel>(entity =>

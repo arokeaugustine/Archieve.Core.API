@@ -9,5 +9,7 @@ public partial class Car
 
     public string Name { get; set; } = null!;
 
+    public Guid Uid { get; set; }
+
     public virtual ICollection<CarModel> CarModels { get; set; } = new List<CarModel>();
 }

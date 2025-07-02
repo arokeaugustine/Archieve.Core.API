@@ -1,2 +1,2 @@
 ﻿
-Scaffold-DbContext "Server=DESKTOP-VKI582V\MSSQLSERVER01;Database=Archieve;Trusted_Connection=True;MultipleActiveResultSets=true; TrustServerCertificate=true;"  Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/Data -Force
+Scaffold-DbContext "Server=DESKTOP-VKI582V\MSSQLSERVER01;Database=Archieve;Trusted_Connection=True;MultipleActiveResultSets=true; TrustServerCertificate=true;"  Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force

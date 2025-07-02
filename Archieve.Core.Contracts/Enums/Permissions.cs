@@ -16,6 +16,8 @@ namespace Archieve.Core.Contracts.Enums
         CanViewUsers = 0x12,
         [Display(GroupName = "Books", Name = "CanViewBooks", Description = "Can view all Books")]
         CanViewBooks = 0x13,
+        [Display(GroupName = "Cars", Name = "CanViewCars", Description = "Can view all cars")]
+        CanViewCars = 0x14,
 
     }
 }

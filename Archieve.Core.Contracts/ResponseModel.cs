@@ -9,6 +9,7 @@ namespace Archieve.Core.Contracts
     public class ResponseModel<T>
     {
         public bool IsSuccessful { get; set; }
+        public int StatusCode { get; set; }
         public string Message { get; set; } = string.Empty;
         public T Data { get; set; }
     }
@@ -16,6 +17,7 @@ namespace Archieve.Core.Contracts
     public class ResponseModel
     {
         public bool IsSuccessful { get; set; }
+        public int StatusCode { get; set; }
         public string Message { get; set; } = string.Empty;
     }
 
